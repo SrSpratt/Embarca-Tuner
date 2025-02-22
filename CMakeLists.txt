@@ -54,13 +54,9 @@ pico_enable_stdio_usb(Embarca-Tuner 1)
 target_link_libraries(Embarca-Tuner
         pico_stdlib)
 
-# Add the standard include files to the build
-target_include_directories(Embarca-Tuner PRIVATE
-        ${CMAKE_CURRENT_LIST_DIR}
-)
-
 # Add any user requested libraries
 target_link_libraries(Embarca-Tuner 
+    hardware_adc
 )
 
 pico_add_extra_outputs(Embarca-Tuner)

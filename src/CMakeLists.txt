@@ -1,5 +1,5 @@
 set(SRC_FILES
-    test.c
+    ADC.c
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
