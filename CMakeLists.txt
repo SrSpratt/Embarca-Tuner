@@ -37,6 +37,12 @@ pico_sdk_init()
 
 add_executable(Embarca-Tuner Embarca-Tuner.c )
 
+add_subdirectory(src)
+
+target_include_directories(${PROJECT_NAME} PRIVATE
+    ${CMAKE_SOURCE_DIR}/include
+)
+
 pico_set_program_name(Embarca-Tuner "Embarca-Tuner")
 pico_set_program_version(Embarca-Tuner "0.1")
 
@@ -55,8 +61,10 @@ target_include_directories(Embarca-Tuner PRIVATE
 
 # Add any user requested libraries
 target_link_libraries(Embarca-Tuner 
-        
-        )
+)
 
 pico_add_extra_outputs(Embarca-Tuner)
+
+pico_enable_stdio_uart(${PROJECT_NAME} 1)
+pico_enable_stdio_usb(${PROJECT_NAME} 1)
 
