@@ -57,6 +57,7 @@ target_link_libraries(Embarca-Tuner
 # Add any user requested libraries
 target_link_libraries(Embarca-Tuner 
     hardware_adc
+    hardware_i2c
 )
 
 pico_add_extra_outputs(Embarca-Tuner)

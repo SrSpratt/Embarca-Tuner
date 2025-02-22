@@ -1,0 +1,4 @@
+[wokwi]
+version = 1
+firmware = "/build/Embarca-Tuner.uf2"
+elf = "/build/Embarca-Tuner.elf"
