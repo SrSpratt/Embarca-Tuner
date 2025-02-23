@@ -6,7 +6,7 @@
 
 #define MICPIN 28 
 #define ADCHCHANNEL 2
-#define SAMPLERATE 16000 //Taxa de amostragem
+#define SAMPLERATE 8000 //Taxa de amostragem
 
 int main()
 {
