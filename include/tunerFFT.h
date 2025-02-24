@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define FFTSIZE 1024  // Tamanho da FFT
+#define FFTSIZE 4096  // Tamanho da FFT
 #define PI 3.14159265358979323846  // Definição de PI
 
 // Estrutura para armazenar os dados da FFT

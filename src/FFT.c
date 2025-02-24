@@ -4,33 +4,51 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 
-// Implementação da FFT usando recursão
+// Implementação iterativa da FFT
 void FastFourierTransform(FFTData *data, int N) {
-    if (N <= 1) return;
+    int i, j, k;
+    float angle;
+    float tReal, tImag;
 
-    // Divide os dados em pares e ímpares
-    FFTData even, odd;
-    for (int i = 0; i < N / 2; i++) {
-        even.real[i] = data->real[2 * i];
-        even.imag[i] = data->imag[2 * i];
-        odd.real[i] = data->real[2 * i + 1];
-        odd.imag[i] = data->imag[2 * i + 1];
+    // Reordena os dados usando bit-reversal
+    j = 0;
+    for (i = 0; i < N - 1; i++) {
+        if (i < j) {
+            tReal = data->real[i];
+            tImag = data->imag[i];
+            data->real[i] = data->real[j];
+            data->imag[i] = data->imag[j];
+            data->real[j] = tReal;
+            data->imag[j] = tImag;
+        }
+        k = N / 2;
+        while (k <= j) {
+            j -= k;
+            k /= 2;
+        }
+        j += k;
     }
 
-    // Recursão para as metades pares e ímpares
-    FastFourierTransform(&even, N / 2);
-    FastFourierTransform(&odd, N / 2);
+    // Calcula a FFT
+    int stage, step, butterfly;
+    for (stage = 1; stage <= log2(N); stage++) {
+        step = 1 << stage;  // 2^stage
+        int halfStep = step / 2;
 
-    // Combina os resultados
-    for (int k = 0; k < N / 2; k++) {
-        double angle = -2 * PI * k / N;
-        double tReal = cos(angle) * odd.real[k] - sin(angle) * odd.imag[k];
-        double tImag = sin(angle) * odd.real[k] + cos(angle) * odd.imag[k];
+        for (butterfly = 0; butterfly < halfStep; butterfly++) {
+            angle = -2 * PI * butterfly / step;
 
-        data->real[k] = even.real[k] + tReal;
-        data->imag[k] = even.imag[k] + tImag;
-        data->real[k + N / 2] = even.real[k] - tReal;
-        data->imag[k + N / 2] = even.imag[k] - tImag;
+            for (i = butterfly; i < N; i += step) {
+                j = i + halfStep;
+                tReal = cos(angle) * data->real[j] - sin(angle) * data->imag[j];
+                tImag = sin(angle) * data->real[j] + cos(angle) * data->imag[j];
+
+                data->real[j] = data->real[i] - tReal;
+                data->imag[j] = data->imag[i] - tImag;
+                data->real[i] += tReal;
+                data->imag[i] += tImag;
+            }
+        }
     }
 }
 
