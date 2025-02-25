@@ -4,6 +4,8 @@
 #include <tunerInterfaces.h>
 #include <tunerFFT.h>
 #include <tunerPIO.h>
+#include <tunerNote.h>
+#include <math.h>
 #include "pico/stdlib.h"
 
 #define MICPIN 28 
@@ -42,7 +44,7 @@ int main()
         .BackgroundColor = {
             .Red = 0.0,
             .Green = 0.0,
-            .Blue = 0.005
+            .Blue = 0.0
         }
     };
     uint32_t ledConf = 0;
@@ -51,8 +53,10 @@ int main()
 
     InitPIO(&pio, MATRIXPIN); // Inizialização da PIO
 
-    ArrayCopySameSize(sketch.Figure, SketchArray('g'), VECTORSIZE);
+    ArrayCopySameSize(sketch.Figure, SketchArray('o'), VECTORSIZE);
     Draw(sketch, ledConf, pio); //Desenha um quadrado azul
+
+    CentralizeMessage(&ssd, "Inicio");
 
     while (true) {
         //printf("OLÁ!\n");
@@ -62,9 +66,13 @@ int main()
         FastFourierTransform(&fourierData, FFTSIZE);
         dominantFrequency = FindDominantFrequency(&fourierData, SAMPLERATE);
         //printf("F: %f\n", dominantFrequency);
-        sprintf(displayedFrequency, "F: %0.2fHz", dominantFrequency);
-        printf(displayedFrequency);
-        printf("\n");
+        char letter = GetLetterFromFrequency(dominantFrequency);
+        sprintf(displayedFrequency, "F: %0.2fHz. %c", dominantFrequency, letter);
+        letter = ToLower(letter);
+        ArrayCopySameSize(sketch.Figure, SketchArray(letter), VECTORSIZE);
+        Draw(sketch, ledConf, pio); //Desenha um quadrado azul
+        //printf(displayedFrequency);
+        //printf("\n");
         CentralizeMessage(&ssd, displayedFrequency);
     }
 }

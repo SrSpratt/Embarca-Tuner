@@ -5,6 +5,7 @@ set(SRC_FILES
     FFT.c
     General.c
     PIO.c
+    Note.c
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
