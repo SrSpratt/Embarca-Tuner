@@ -3,6 +3,8 @@ set(SRC_FILES
     Interfaces.c
     ssd1306.c
     FFT.c
+    General.c
+    PIO.c
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
