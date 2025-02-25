@@ -18,6 +18,6 @@ void I2CInit(ssd1306_t* ssd){
 
 void CentralizeMessage(ssd1306_t* ssd, char* message){
     ssd1306_fill(ssd, false);
-    ssd1306_draw_string(ssd, message, 60, 30);
+    ssd1306_draw_string(ssd, message, 20, 30);
     ssd1306_send_data(ssd);
 }
