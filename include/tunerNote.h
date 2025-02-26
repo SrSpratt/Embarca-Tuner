@@ -7,12 +7,14 @@ typedef struct {
     char letter; 
 } MusicalNote;
 
-char ToLower(char);
+// Tabela de notas musicais (A4 = 440 Hz)
+extern MusicalNote notes[];
 
-double Fabs(double);
+extern int numNotes;
 
-double NormalizeFrequency(double);
-
-char GetLetterFromFrequency(float);
+char ToLower(char c);
+double Fabs(double x);
+double NormalizeFrequency(double frequency);
+char GetLetterFromFrequency(float frequency);
 
 #endif

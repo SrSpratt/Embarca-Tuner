@@ -4,8 +4,8 @@
 #include <tunerInterfaces.h>
 #include <tunerFFT.h>
 #include <tunerPIO.h>
-#include <tunerNote.h>
 #include <math.h>
+#include <tunerNote.h>
 #include "pico/stdlib.h"
 
 #define MICPIN 28 
@@ -56,7 +56,9 @@ int main()
     ArrayCopySameSize(sketch.Figure, SketchArray('o'), VECTORSIZE);
     Draw(sketch, ledConf, pio); //Desenha um quadrado azul
 
-    CentralizeMessage(&ssd, "Inicio");
+    char a[10];
+    sprintf(a, "%d", numNotes);
+    CentralizeMessage(&ssd, a);
 
     while (true) {
         //printf("OLÁ!\n");
@@ -68,8 +70,7 @@ int main()
         //printf("F: %f\n", dominantFrequency);
         char letter = GetLetterFromFrequency(dominantFrequency);
         sprintf(displayedFrequency, "F: %0.2fHz. %c", dominantFrequency, letter);
-        letter = ToLower(letter);
-        ArrayCopySameSize(sketch.Figure, SketchArray(letter), VECTORSIZE);
+        ArrayCopySameSize(sketch.Figure, SketchArray(ToLower(letter)), VECTORSIZE);
         Draw(sketch, ledConf, pio); //Desenha um quadrado azul
         //printf(displayedFrequency);
         //printf("\n");
