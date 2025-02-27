@@ -18,15 +18,9 @@ MusicalNote notes[] = {
 
 int numNotes = sizeof(notes) / sizeof(notes[0]);
 
-
-typedef struct {
-    char letter; // Letra da nota mais próxima
-    double frequency; // Frequência normalizada
-} ClosestNoteResult;
-
 ClosestNoteResult FindClosestNote(double frequency) {
     ClosestNoteResult result;
-    result.letter = 'o'; // Nota padrão (caso não encontre)
+    result.letter = 'n'; // Nota padrão (caso não encontre)
     result.frequency = frequency; // Frequência normalizada
 
     if (frequency == 0)
@@ -51,11 +45,18 @@ ClosestNoteResult FindClosestNote(double frequency) {
         if (difference < minDifference) {
             minDifference = difference;
             result.letter = notes[i].letter;
+            CopyNote(result.note, notes[i].note);
+            result.difference = minDifference;
             result.frequency = noteFrequency;
         }
     }
 
     return result;
+}
+
+void CopyNote(char first[4], char second[4]){
+    for(int i = 0; i < 4; i++)
+        first[i] = second[i];
 }
 
 char ToLower(char c) {
@@ -88,5 +89,5 @@ char GetLetterFromFrequency(float frequency) {
         return result.letter;
     }
 
-    return 'o'; // Retorna '?' se a frequência não corresponder a nenhuma nota
+    return 'n'; // Retorna '?' se a frequência não corresponder a nenhuma nota
 }

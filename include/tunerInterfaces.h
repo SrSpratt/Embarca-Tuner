@@ -9,11 +9,9 @@
 #define I2C_SCL 15
 #define endereco 0x3C
 
-#define BAUD_RATE 115200
-#define TX 0
-#define RX 1
 
 void I2CInit(ssd1306_t*);
-void CentralizeMessage(ssd1306_t*,char*);
+void CentralMessages(ssd1306_t*,char*, char*);
+void UpperDiagonalMessage(ssd1306_t*, char*);
 
 #endif

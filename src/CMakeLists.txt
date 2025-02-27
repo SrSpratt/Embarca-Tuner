@@ -6,6 +6,7 @@ set(SRC_FILES
     General.c
     PIO.c
     Note.c
+    PWM.c
 )
 
 target_sources(${PROJECT_NAME} PRIVATE

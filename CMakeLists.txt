@@ -59,6 +59,7 @@ target_link_libraries(Embarca-Tuner
     hardware_adc
     hardware_i2c
     hardware_pio
+    hardware_pwm
 )
 pico_generate_pio_header(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/include/tunerPIO.pio)
 pico_add_extra_outputs(Embarca-Tuner)

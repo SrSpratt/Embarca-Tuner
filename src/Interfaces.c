@@ -16,8 +16,15 @@ void I2CInit(ssd1306_t* ssd){
     ssd1306_send_data(ssd);
 }
 
-void CentralizeMessage(ssd1306_t* ssd, char* message){
+void CentralMessages(ssd1306_t* ssd, char* centralMessage, char* diagonalMessage){
     ssd1306_fill(ssd, false);
-    ssd1306_draw_string(ssd, message, 20, 30);
+    ssd1306_draw_string(ssd, diagonalMessage, 20, 20);
+    ssd1306_draw_string(ssd, centralMessage, 20, 40);
+    ssd1306_send_data(ssd);
+}
+
+void UpperDiagonalMessage(ssd1306_t* ssd, char* message){
+    ssd1306_fill(ssd, false);
+    ssd1306_draw_string(ssd, message, 20, 15);
     ssd1306_send_data(ssd);
 }
